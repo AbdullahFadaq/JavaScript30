@@ -40,16 +40,33 @@
     // 1. Filter the list of inventors for those who were born in the 1500's
     let bornIn1500s = inventors.filter( item => (item.year >= 1500 && item.year <= 1599) );
     console.table(bornIn1500s);
+    
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    let firstAndLast = inventors.map(item => item.first + ' ' + item.last);
+    console.log(firstAndLast);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    let sortByBirth = inventors.sort((a,b) => a.year - b.year);
+    console.table(sortByBirth);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    let totalYearsLived = inventors.reduce((years, inventor) => {
+      years += (inventor.passed - inventor.year);
+      return years;
+    },0);
+    console.log(`Total years lived by all inventors = ${totalYearsLived}`);
 
     // 5. Sort the inventors by years lived
+    let sortByYearsLived = inventors.sort((a,b)=> {
+      a = (a.passed - a.year);
+      b = (b.passed - b.year);
+      return a-b;
+    })
+    console.log("\n \n Inventors sorted by years lived (increasing order):");
+    console.table(sortByYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -57,10 +74,29 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sortByLastName = people.sort((a,b) => {
+      [aLast, aFirst] = a.split(', ');
+      [bLast, bFirst] = b.split(', ');
 
+      return bLast < aLast ? 1 : -1;
+    })
+    console.log('\n \n People sorted by last name:')
+    console.table(sortByLastName);
+
+    
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const sumOfInstances = data.reduce((acc, curr) => {
+      if(!acc[curr]){
+        acc[curr] = 0;
+      }
+
+      acc[curr]+=1;
+      return acc;
+    }, {})
+    console.log('\n \n Sum of instances of each item in the array:');
+    console.log(sumOfInstances);
 
   </script>
 </body>
